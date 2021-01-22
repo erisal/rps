@@ -1,0 +1,192 @@
+<html>
+    <head> 
+        <link rel="stylesheet" href="style.css"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Unica+One&display=swap" rel="stylesheet"> 
+    </head>
+        <body>
+        <div id="container">
+            <div id="title"><h1>Rock Paper Scissors</h1>
+            <img class="hands" id="leftImg" src="images/blank.png" width="120"><img class="hands" id="rightImg" src="images/blank.png" width="120"></div>
+            <div id="message">Select your weapon to begin. First to 5 wins!</div>
+            <div id="score">human: 0 . computer: 0 . tie: 0</div>
+            <button class="selector" id="rock">Rock</button>
+            <button class="selector"  id="paper">Paper</button>
+            <button class="selector"  id="scissors">Scissors</button>
+        </div>
+
+
+
+<script>
+
+function computerPlay() { 
+    let randomSel = Math.floor(Math.random() * 3);
+    let returnVal;
+    switch (randomSel) {
+        case 0: return "rock";
+        case 1: return "paper";
+        default: return "scissors";
+    }
+}
+
+function playRound(playerSelection) {
+    let computerSelection = computerPlay();
+    let message;
+    let playerImg = document.querySelector('#leftImg');
+    let winner = 0;
+
+    switch (playerSelection) {
+        case "rock": 
+            switch (computerSelection) {
+                case "rock": 
+                    score[2]++;
+                    message =  "Tie";
+                    winner = 0;
+                    break;
+                case "paper": 
+                    score[1]++;
+                    message =  "You Lose! Paper beats Rock.";
+                    winner = 2;
+                    break;
+                case "scissors": 
+                    score[0]++;
+                    message =  "You Win! Rock beats Scissors!";
+                    winner = 1;
+                    break;
+              //  default: message =  "oops";
+            }
+            playerImg.src = "images/lr.png";
+
+           // playerImg.classList.remove('winner');
+
+            break;
+        case "paper":
+            switch (computerSelection) {
+                case "rock": 
+                    score[0]++;
+                    message =  "You Win! Paper beats Rock!";
+                    winner = 1;
+                    break;
+                case "paper": 
+                    score[2]++;
+                    message =  "Tie";
+                    winner = 0;
+                    break;
+                case "scissors": 
+                    score[1]++;
+                    message =  "You Lose! Scissors beats Paper.";
+                    winner = 2;
+                    break;
+              //  default: message =  "oops1";
+            }
+            playerImg.src = "images/lp.png";
+            break;
+        case "scissors":
+            switch (computerSelection) {
+                case "rock": 
+                    score[1]++;
+                    message =  "You Lose! Rock beats Scissors.";
+                    winner = 2;
+                    break;
+                case "paper": 
+                    score[0]++;
+                    message =  "You Win! Scissors beats Rock.";
+                    winner = 1;
+                    break;
+                case "scissors": 
+                    score[2]++;
+                    message =  "Tie";
+                    winner = 0;
+                    break;
+             //   default: message =  "oops2";
+            }
+            playerImg.src = "images/ls.png";
+            break;
+    }
+    let messageDiv = document.querySelector('#message');
+    let scoreDiv = document.querySelector('#score');
+    setCompImg(computerSelection);
+    showWinner(winner);
+    messageDiv.textContent = message;
+
+    let scoreMessage =  "human: "  + score[0] + " . computer: " + score[1] + " . tie: " + score[2];
+    scoreDiv.textContent = scoreMessage;
+
+  if (score[0] == 5) { messageDiv.textContent = "YOU WIN!" }
+  if (score[1] == 5) { messageDiv.textContent = "YOU LOSE!" }
+}
+
+function showWinner(winner) {
+    let playerImg = document.querySelector('#leftImg');
+    let compImg = document.querySelector('#rightImg');
+    switch (winner) {
+        case 1: 
+            playerImg.classList.add('winner');
+            playerImg.addEventListener('transitionend', removeTransition);
+            break;
+        case 2: 
+            compImg.classList.add('winner');
+            compImg.addEventListener('transitionend', removeTransition);
+            break;
+        default: 
+            playerImg.classList.add('winner');
+            playerImg.addEventListener('transitionend', removeTransition);
+            compImg.classList.add('winner');
+            compImg.addEventListener('transitionend', removeTransition);
+            break;
+    }
+}
+function setCompImg(selection) {
+    let compImg = document.querySelector('#rightImg');
+
+    switch (selection) {
+        case "rock": compImg.src = "images/rr.png";
+        break;
+        case "paper": compImg.src = "images/rp.png";
+        break;
+        case "scissors": compImg.src = "images/rs.png";
+        break;
+
+    }
+}
+
+function removeTransition() {
+    this.classList.remove('winner');
+}
+
+function game(numGames) {
+    while (score[0] < 5 && score[1] < 5) {
+
+        let newMessage = (playRound(playerSelection, computerSelection));
+        let messageDiv = document.querySelector('#message');
+        messageDiv.textContent = newMessage;
+    }
+    console.log("Game Over! W: " + score[0] + " L: " + score[1] + " T: " + score[2]);
+}
+
+function resetGame() {
+    score = [0, 0, 0];
+    let scoreDiv = document.querySelector('#score');
+    let messageDiv = document.querySelector('#message');
+    scoreDiv.textContent = "human: 0 . computer: 0 . tie: 0";
+    messageDiv.textContent = "Select your weapon to begin. First to 5 wins!";
+}
+
+let numGames = 5; //parseInt(prompt("How many games?"));
+var score =[0, 0, 0];
+
+const btn1 = document.querySelector('#rock');
+btn1.addEventListener('click', () => playRound("rock"));
+
+const btn2 = document.querySelector('#paper');
+btn2.addEventListener('click', () => playRound("paper"));
+
+const btn3 = document.querySelector('#scissors');
+btn3.addEventListener('click', () => playRound("scissors"));
+
+//game (numGames);
+
+</script>
+
+</body>
+</html>

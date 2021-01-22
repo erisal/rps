@@ -1,0 +1,44 @@
+body {
+    background: midnightblue;
+    color: white;
+    font-family: 'Unica One', cursive;
+}
+
+#container{
+    position:absolute;
+    top: 20%;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+}
+
+.selector{
+    color:rgb(255, 189, 163);
+    background-color: darkcyan; 
+    font-size: 20px;
+    font-family: 'Unica One', cursive;
+    border: 1px solid darkcyan;
+    border-radius: 6px;
+    margin: 8px;
+}
+
+.selector:hover {
+    border: 1px solid white;
+}
+
+#message {
+    font-size: 24px;
+}
+
+#score {
+    font-size: 24px;
+}
+
+.hands {
+    transition: all .3s ease;
+    padding: 18px;
+}
+
+.winner {
+    transform: scale(1.2);
+}
