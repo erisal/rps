@@ -7,12 +7,17 @@
         <body>
         <div id="container">
             <div id="title"><h1>Rock Paper Scissors</h1>
+             <div id="score">human: 0 . computer: 0 . tie: 0</div>
             <img class="hands" id="leftImg" src="images/blank.png" width="120"><img class="hands" id="rightImg" src="images/blank.png" width="120"></div>
             <div id="message">Select your weapon to begin. First to 5 wins!</div>
-            <div id="score">human: 0 . computer: 0 . tie: 0</div>
-            <button class="selector" id="rock">Rock</button>
-            <button class="selector"  id="paper">Paper</button>
-            <button class="selector"  id="scissors">Scissors</button>
+            
+            <div id="buttons">
+                <button class="selector" id="rock">Rock</button>
+                <button class="selector"  id="paper">Paper</button>
+                <button class="selector"  id="scissors">Scissors</button>
+            </div>
+            <div id="winnerScreen">test</div>
+            <button class="selector" id="restart" onclick="resetGame()">Restart Game</button>
         </div>
 
 
@@ -28,6 +33,19 @@ function computerPlay() {
         default: return "scissors";
     }
 }
+function checkOver() {
+    if (score[0] != 5 && score[1] != 5) return;
+    let winnerScreen = document.querySelector('#winnerScreen');
+    let buttonDiv = document.querySelector('#buttons');
+    let restartButton = document.querySelector('#restart');
+    buttonDiv.setAttribute('style', 'display: none'); 
+    winnerScreen.setAttribute('style', 'display: block');
+    restartButton.setAttribute('style', 'display: block');
+
+    if (score[0] == 5) winnerScreen.textContent = "YOU WIN THE MATCH!";
+    else if (score[1] == 5) winnerScreen.textContent = "YOU LOSE THE MATCH!";
+
+}
 
 function playRound(playerSelection) {
     let computerSelection = computerPlay();
@@ -35,6 +53,7 @@ function playRound(playerSelection) {
     let playerImg = document.querySelector('#leftImg');
     let winner = 0;
 
+    //check for winner and update score
     switch (playerSelection) {
         case "rock": 
             switch (computerSelection) {
@@ -103,17 +122,20 @@ function playRound(playerSelection) {
             playerImg.src = "images/ls.png";
             break;
     }
+    //update graphics and animation for winner
     let messageDiv = document.querySelector('#message');
     let scoreDiv = document.querySelector('#score');
     setCompImg(computerSelection);
     showWinner(winner);
     messageDiv.textContent = message;
 
+    //update score
     let scoreMessage =  "human: "  + score[0] + " . computer: " + score[1] + " . tie: " + score[2];
     scoreDiv.textContent = scoreMessage;
 
-  if (score[0] == 5) { messageDiv.textContent = "YOU WIN!" }
-  if (score[1] == 5) { messageDiv.textContent = "YOU LOSE!" }
+    //check if game is over
+    checkOver();
+
 }
 
 function showWinner(winner) {
@@ -154,22 +176,23 @@ function removeTransition() {
     this.classList.remove('winner');
 }
 
-function game(numGames) {
-    while (score[0] < 5 && score[1] < 5) {
-
-        let newMessage = (playRound(playerSelection, computerSelection));
-        let messageDiv = document.querySelector('#message');
-        messageDiv.textContent = newMessage;
-    }
-    console.log("Game Over! W: " + score[0] + " L: " + score[1] + " T: " + score[2]);
-}
-
 function resetGame() {
     score = [0, 0, 0];
     let scoreDiv = document.querySelector('#score');
     let messageDiv = document.querySelector('#message');
+    let winnerScreen = document.querySelector('#winnerScreen');
+    let buttonDiv = document.querySelector('#buttons');
+    let restartButton = document.querySelector('#restart');
+    let playerImg = document.querySelector('#leftImg');
+    let compImg = document.querySelector('#rightImg');
+
+    buttonDiv.setAttribute('style', 'display: block'); 
+    winnerScreen.setAttribute('style', 'display: none');
+    restartButton.setAttribute('style', 'display: none');
     scoreDiv.textContent = "human: 0 . computer: 0 . tie: 0";
     messageDiv.textContent = "Select your weapon to begin. First to 5 wins!";
+    playerImg.src = "images/blank.png";
+    compImg.src = "images/blank.png";
 }
 
 let numGames = 5; //parseInt(prompt("How many games?"));
@@ -184,7 +207,6 @@ btn2.addEventListener('click', () => playRound("paper"));
 const btn3 = document.querySelector('#scissors');
 btn3.addEventListener('click', () => playRound("scissors"));
 
-//game (numGames);
 
 </script>
 

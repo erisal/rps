@@ -15,11 +15,19 @@ body {
 .selector{
     color:rgb(255, 189, 163);
     background-color: darkcyan; 
-    font-size: 20px;
+    font-size: 36px;
     font-family: 'Unica One', cursive;
     border: 1px solid darkcyan;
     border-radius: 6px;
     margin: 8px;
+}
+
+#restart{
+    margin: auto;
+}
+#winnerScreen{
+    font-size: 42px;
+    margin-bottom: 12px;
 }
 
 .selector:hover {
@@ -27,18 +35,34 @@ body {
 }
 
 #message {
-    font-size: 24px;
+    font-size: 32px;
+    margin: 10px;
+}
+
+h1{
+    font-size: 48px;
+    margin-bottom: 6px;
 }
 
 #score {
     font-size: 24px;
+    opacity: 40%;
+    margin: 0px;
+}
+
+#winnerScreen {
+    display: none;
+}
+
+#restart {
+    display: none;
 }
 
 .hands {
-    transition: all .3s ease;
+    transition: all .5s ease;
     padding: 18px;
 }
 
 .winner {
-    transform: scale(1.2);
+    transform: scale(1.4);
 }
