@@ -17,7 +17,7 @@
                 <button class="selector"  id="scissors">Scissors</button>
             </div>
             <div id="winnerScreen">test</div>
-            <button class="selector" id="restart" onclick="resetGame()">Restart Game</button>
+            <button class="selector" id="restart" onclick="resetGame()">Start New Match</button>
         </div>
 
 
@@ -109,7 +109,7 @@ function playRound(playerSelection) {
                     break;
                 case "paper": 
                     score[0]++;
-                    message =  "You Win! Scissors beats Rock.";
+                    message =  "You Win! Scissors beats Paper.";
                     winner = 1;
                     break;
                 case "scissors": 
